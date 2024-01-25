@@ -1,0 +1,89 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% References                           						  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Acronyms                           							  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{acro}
+\input{acrosettings}
+\input{acronyms}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Listings                           							  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\crefname{lstlisting}{listing}{listings}
+\Crefname{lstlisting}{Listing}{Listings}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[newfloat]{minted}
+\usepackage{listings}
+
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+\title{Analysis of BDD Testing in RCE: Enhancing Framework Resilience through Evaluation and Recommendations}
+%
+\titlerunning{Analysis of BDD Testing in RCE}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{Artur Komaristych\inst{1} \and Luka Gerlach\inst{1}}
+%
+\authorrunning{A. Komaristych, L. Gerlach}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{University of Cologne \and
+DLR Institute for Software Technology}
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+\input{content/abstract}
+%\keywords{First keyword  \and Second keyword \and Another keyword.}
+\end{abstract}
+%
+%
+%
+\section{Introduction}
+\input{content/introduction}
+\section{Background and Related Work}
+\input{content/background_and_related_work}
+\section{Method}
+\input{content/method}
+\section{Examination of the RCE Testing Setup}
+\input{content/examination}
+\section{Results}
+\label{sec:results}
+\input{content/results}
+\section{Discussion}
+\input{content/discussion}
+\section{Conclusion}
+\input{content/conclusion}
+
+%
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+\bibliographystyle{splncs04}
+\bibliography{references}
+\end{document}

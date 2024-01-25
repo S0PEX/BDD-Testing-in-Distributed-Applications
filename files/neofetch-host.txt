@@ -1,0 +1,8 @@
+s0pex@um790-pro 
+--------------- 
+OS: Ubuntu Sway 23.04 x86_64 
+Host: Shenzhen Meigao Electronic Equipment Co.,Ltd F7BSC 
+Kernel: 6.2.0-39-generic 
+CPU: AMD Ryzen 9 7940HS w/ Radeon 780M Graphics (16) @ 4.000GHz 
+GPU: AMD ATI Phoenix 
+Memory: 15437MiB / 62070MiB 

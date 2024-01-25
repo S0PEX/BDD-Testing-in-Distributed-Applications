@@ -1,0 +1,6 @@
+{
+    "instanceManagement": {
+        "dataRootDirectory": "C:\\MyWorkdir\\rce-im-dat",
+        "installationsRootDirectory": "C:\\MyWorkdir\\rce-im-inst"
+    }
+}
