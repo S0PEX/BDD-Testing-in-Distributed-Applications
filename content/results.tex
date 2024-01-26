@@ -1,4 +1,4 @@
-In this section, we present a concise summary of our findings derived from the thorough examination. Initially, we revisit our observations concerning the current setup of RCE, highlighting the identified issues and challenges in~\cref{sub:identified-problems}. Subsequently, we delve into the aspect of missing network fault tests, shedding light on the implications and gaps observed in this critical area of RCE's testing framework in~\cref{sub:lack-network-tests}. 
+In this section, we present a concise summary of our findings derived from the thorough examination of \ac{RCE} that is presented in ~\cref{sec:examination}. Initially, we revisit our observations concerning the current setup of RCE, highlighting the identified issues and challenges in~\cref{sub:identified-problems}. Subsequently, we delve into the aspect of missing network fault tests, shedding light on the implications and gaps observed in this critical area of RCE's testing framework in~\cref{sub:lack-network-tests}. 
 
 \subsection{Identified problems in RCE's Testing Setup}
 \label{sub:identified-problems}
@@ -14,14 +14,14 @@ In numerous scenarios within \ac{RCE}'s testing setup, processes such as the exe
 In~\cref{subsec:CodeReview}, we highlighted the challenges posed by the use of \ac{Regex} in Cucumber annotations, particularly concerning their impact on readability and simplicity. The intricate syntax of \ac{Regex}, while offering robust pattern-matching functionality, tends to result in annotations that are complex and challenging to interpret, especially for individuals lacking proficiency in \ac{Regex}. The introduction of Cucumber Expressions offers a solution to the identified issues, providing a simpler, more intuitive syntax that enhances readability and comprehensibility, thereby alleviating the cognitive stress while improving overall code maintainability. For an illustrative contrast between a step-definition annotation utilizing \ac{Regex} and one employing Cucumber Expressions, refer to~\cref{lst:simpleRegex}.
 
 \begin{listing}[!ht]
-\caption{simple \ac{Regex} annotation}
+\caption{Code Snipped illustrating the difference between \ac{Regex} and Cucumber Expressions}
 \label{lst:simpleRegex}
 \inputminted{java}{files/code/simpleRegex.java}
 \end{listing}
 
-In this example, the ease of using Cucumber Expressions becomes evident. In contrast to the necessity for users to have a comprehensive understanding of capturing groups, character classes, negation, and quantifiers in order to decipher this particular \ac{Regex}, Cucumber Expressions and their intuitive placeholders (e.g., "\{string\}, \{int\}, \{float\}, etc.)", offer a starkly different user experience when capturing primitive data types.
+In this example, the ease of using Cucumber Expressions becomes evident. In contrast to the necessity for users to have a comprehensive understanding of capturing groups, character classes, negation, and quantifiers in order to decipher this particular \ac{Regex}, Cucumber Expressions and their intuitive placeholders (e.g., "\{string\}, \{int\}, \{float\}, etc.)", offer a starkly different user experience when capturing primitive data types. While such placeholders offer improved readability and ease of use, it is important to acknowledge that they do not possess the same level of expressive power as \ac{Regex}. This distinction introduces a trade-off between simplicity and flexibility, as further discussed in~\cref{sec:discussion}. 
 
-While Cucumber Expressions offer improved readability and ease of use, it is important to acknowledge that they do not possess the same level of expressive power as \ac{Regex}. This distinction introduces a trade-off between simplicity and flexibility, that will be further discussed in~\cref{sec:discussion}.
+To summarize, in scenarios where the expressive power of \ac{Regex} is not a limiting factor, it is advisable to utilize Cucumber Expressions. By doing so, development teams can address the challenges previously highlighted, such as enhancing readability, reducing cognitive load, and improving maintainability. However, such decisions must be made on a case-by-case basis.
 
 
 \subsubsection{Lack of Genuine Network Tests Incorporating Network Faults}
