@@ -21,7 +21,9 @@ In \cref{subsec:CodeReview}, we highlighted the challenges posed by the use of \
 \inputminted{java}{files/code/simpleRegex.java}
 \end{listing}
 
+In this example, the ease of using Cucumber Expressions becomes evident. In contrast to the necessity for users to have a comprehensive understanding of capturing groups, character classes, negation, and quantifiers in order to decipher this particular \ac{Regex}, Cucumber Expressions and their intuitive placeholders offer a starkly different user experience.
 
+While Cucumber Expressions offer improved readability and ease of use, it is important to acknowledge that they do not possess the same level of expressive power as \ac{Regex}. This distinction introduces a trade-off between simplicity and flexibility. Cucumber Expressions are designed to be more intuitive and straightforward, making them an excellent choice for common scenarios where patterns are relatively simple and direct. However, their simplicity comes at the cost of the extensive pattern-matching capabilities inherent to \ac{Regex}, that allow intricate and nuanced string manipulation, capable of handling a wide range of complex scenarios and edge cases with precision. This advanced functionality is particularly valuable in cases requiring detailed and specific pattern recognition, which might be beyond the scope of Cucumber Expressions. Therefore, while Cucumber Expressions significantly enhance readability and maintainability, developers and teams must carefully consider the requirements of their specific context when deciding between the two, weighing the benefits of simplicity against the need for comprehensive pattern-matching capabilities.
 
 
 \subsubsection{Lack of Genuine Network Tests Incorporating Network Faults}
