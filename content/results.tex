@@ -1,8 +1,32 @@
-Short recap of our finding from sec4 and then present the solutions
-\textbf{We maybe also rename this section to Identified Problems and possible Solutions, but not sure if this aligns with the given structure by the professor}
-\subsection{Identified problems in RCE's Testing Setup}
-Recap on static waits, cucumber expression, and the missing network test in terms of faults
+In this section, we present a concise summary of our findings derived from the thorough examination. Initially, we revisit our observations concerning the current setup of RCE, highlighting the identified issues and challenges in~\cref{sub:identified-problems}. Subsequently, we delve into the aspect of missing network fault tests, shedding light on the implications and gaps observed in this critical area of RCE's testing framework in~\cref{sub:lack-network-tests}. 
 
+\subsection{Identified problems in RCE's Testing Setup}
+\label{sub:identified-problems}
+In this section, we will address identified problems in RCE's testing setup, structuring our discussion around three key points: the presence of static waits, the intricate use of complex regex patterns, and the lack of network tests simulating faults
+.
 \subsubsection{Static WAITs}
+In numerous scenarios within \ac{RCE}'s testing setup, processes such as the execution of workflow” or ensuring a specific system state rely on static waits. Our analysis, particularly in \cref{subsec:staticwaits}, highlighted the limitation of this approach, especially when the system environment requires more time than the predefined static wait duration. This mismatch can lead to unnecessary test failures. To address this, we recommend the adoption of dynamic waits or conditional waits where feasible. While dynamic waits with timeouts might be suitable in cases where checking for workflow completion is challenging, implementing these adaptive strategies enhances the resilience of tests to variable system conditions. Alternatively, the method of timeouts, already used in the Network Tests (e.g., "@Network02" with the "THEN"-clause "should be ready within 20 seconds"), can be applied. This approach employs periodic checks within a specified timeframe, serving as a timeout implementation that adapts to varying system conditions.
+
+
 \subsubsection{Suboptimal Application of Regex in Cucumber Step Definitions}
+\label{subsec:resultCucumber}
+WIP
+
+
+In \cref{subsec:CodeReview}, we highlighted the challenges posed by the use of \ac{Regex} in Cucumber annotations, particularly concerning their impact on readability and simplicity. The intricate syntax of \ac{Regex}, while offering robust pattern-matching functionality, tends to result in annotations that are complex and challenging to interpret, especially for individuals lacking proficiency in \ac{Regex}. The introduction of Cucumber Expressions offers a solution to the identified issues, providing a simpler, more intuitive syntax that enhances readability and comprehensibility, thereby alleviating the cognitive stress associated with complex \ac{Regex} patterns and improving overall code maintainability. For an illustrative contrast between a step-definition annotation utilizing \ac{Regex} and one employing Cucumber Expressions, refer to \cref{lst:simpleRegex}.
+
+\begin{listing}[!ht]
+\caption{simple \ac{Regex} annotation}
+\label{lst:simpleRegex}
+\inputminted{java}{files/code/simpleRegex.java}
+\end{listing}
+
+
+
+
 \subsubsection{Lack of Genuine Network Tests Incorporating Network Faults}
+\label{sub:lack-network-tests}
+
+In the current test setup, the network aspect of the application is examined on the localhost by initiating multiple local instances. However, this approach might overlook critical real-world circumstances present in an actual distributed environment. As the current setup lacks the capability to test the application's behavior under conditions like packet loss or connection timeouts, it becomes imperative to implement additional tests focusing on these specific failures. Since there is no built-in method in Java to simulate such failures, external tools like WinDivert or Chaos Mesh can be utilized.
+
+WinDivert, designed for Windows, can intercept network traffic at the kernel level, enabling the introduction of network faults. Although it has Java bindings and can be seamlessly integrated into the existing suite, creating specific network faults would require manual intervention, as the library primarily offers basic methods for monitoring, modifying, or dropping packages. On the other hand, tools like Chaos Mesh, built upon \ac{K8S}, can independently generate various network faults. However, they require the execution of tests within a \ac{K8S} cluster. This, in turn, requires the setup and configuration of either a local \ac{K8S} cluster (e.g., minikube) or the use of a remotely hosted cluster, thus adding to the initial setup complexity of the \ac{RCE} development process.
