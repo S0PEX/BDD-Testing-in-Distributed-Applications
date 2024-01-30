@@ -1,10 +1,11 @@
+\label{sec:background}
 \subsection{\acl{BDD}}
 \label{subsec:bdd}
-\acf{BDD} is a software development practice intricately woven into the framework of agile methodologies, which signifies a profound transformation in conventional software engineering approaches. It positions itself as a dynamic response to prevalent challenges by prioritizing user behavior and aligning closely with business needs. Based on the integration of concepts from both \ac{TDD} and \ac{DDD}, \ac{BDD} transcends traditional development paradigms.
+\acf{BDD} is a software development practice intricately woven into the framework of agile methodologies, that frames system design and development around end user expectations about the system and how it behaves. It positions itself as a dynamic response to prevalent challenges by prioritizing the user perspective and aligning closely with business needs. Based on the integration of concepts from both \ac{TDD} and \ac{DDD}, \ac{BDD} transcends traditional development paradigms.
 
-\ac{BDD} stands out as a departure from the typical \ac{TDD} methodology, where the primary focus is on writing tests for isolated code units, with a predominant technical viewpoint. Instead, \ac{BDD} broadens its perspective, bridging the gap between technical and business aspects~\cite{Farooq2023bdd,Binamungu2020bdd}. It achieves this by incorporating viewpoints from both spheres, redirecting the evaluation from individual code segments to the holistic assessment of the application's behavior from the user's standpoint. This strategic change not only enhances communication, but also fosters collaboration between developers, testers, and business stakeholders, as evidenced by previous research~\cite{smart2023bdd,pereira2018behavior}.
+\ac{BDD} stands out as a departure from the typical \ac{TDD} methodology, where the primary focus is on writing tests for isolated code units, with a predominant technical viewpoint, that restricts the determination of system behavior to developers and does not consider the system altogether. Instead, \ac{BDD} broadens its perspective, bridging the gap between technical and business aspects~\cite{Farooq2023bdd,Binamungu2020bdd} and allowing the. It achieves this by incorporating viewpoints from both spheres, redirecting the evaluation from individual code segments to the holistic assessment of the application's behavior from the user's standpoint. This strategic change not only enhances communication, but also fosters collaboration between developers, testers, and business stakeholders, as evidenced by previous research~\cite{smart2023bdd,pereira2018behavior}.
 
-Rooted in a user-centric philosophy, test cases are structured using a language that mirrors natural language. This linguistic clarity serves as a catalyst for effective collaboration, ensuring a shared understanding among team members throughout the software development lifecycle.
+Rooted in a user-centric philosophy, test cases are structured using a language that mirrors natural language, thus enabling non-technical stakeholders to define system behavior and overcoming the challenge of system design being solely within the realm of developers, not seen as a whole. This approach serves as a catalyst for effective collaboration, creating a shared understanding among team members throughout the software development lifecycle.
 
 \subsection{Gherkin}
 \label{subsec:gherkin}
@@ -12,7 +13,8 @@ Rooted in a user-centric philosophy, test cases are structured using a language 
 Gherkin is a \ac{DSL} prominently utilized in the domain of \ac{BDD}. It is used to create requirements and tests in a clear and human-readable format. Gherkin's syntax follows a systematic Given-When-Then structure, interweaving natural language expressions, as demonstrated in \Cref{lst:withdrawcash}. Therefore, it focuses on the end-user's perspective and business requirements rather than the underlying technical implementation.
 
 \begin{listing}[!ht]
-\caption{Exemplary feature file with one scenario. Adapted from cucumber.io~\cite{noauthor_getting_nodate}}
+\caption{Exemplary feature file with one scenario. Adapted from 
+\href{https://cucumber.io/blog/bdd/getting-started-with-bdd-part-1/}{cucumber.io}~\cite{noauthor_getting_nodate}}.
 \label{lst:withdrawcash}
 \inputminted{gherkin}{files/code/atm.feature}
 \end{listing}
@@ -37,7 +39,7 @@ Based on the scenario described in~\Cref{lst:withdrawcash}, the corresponding~\C
 
 \subsection{Distributed Systems}
 \label{subsec:dissys}
-A distributed system is a network of independent computers, running on multiple servers or nodes, that interact and synchronize their activities through the exchange of information~\cite{tanenbaum2007distributed}. These systems consist of components that collaboratively work towards a shared objective, presenting advantages in terms of performance, scalability, and redundancy when compared to centralized systems. The shift towards distributed systems is motivated by the inadequacies of non-distributed, centralized computing models, typified by a single monolithic server. Such centralized models have proven insufficient in addressing the increasing computational requirements and the need for enhanced system capabilities that could not be mitigated by vertically scaling a single system.
+A distributed system is a network of independent computers, running on multiple servers or nodes, that interact and synchronize their activities through the exchange of information~\cite{tanenbaum2007distributed}. These systems consist of components that collaboratively work towards a shared objective, presenting advantages in terms of performance, scalability, and redundancy when compared to centralized systems. The shift from centralized architectures towards distributed systems is motivated by the inadequacies of non-distributed, centralized computing models, typified by a single monolithic server. Such centralized models have proven insufficient in addressing the increasing computational requirements and the need for enhanced system capabilities that could not be mitigated by vertically scaling a single system.
 
 The distinctive feature of distributed systems lies in their avoidance of shared computing and memory resources, introducing complexities related to heterogeneity, scalability, and failure handling, among other challenges~\cite{coulouris2005distributed}. Non-distributed systems may struggle to effectively manage these challenges, leading to limitations in performance, scalability, and fault tolerance. Distributed systems, by distributing computational tasks across a network of interconnected computers, address these shortcomings~\cite{coulouris2005distributed}.
 
@@ -54,6 +56,7 @@ However, this comes at the cost of complexity, as these clusters of individual c
 \acf{K8S}\footnote{https://kubernetes.io/} is an open source container orchestration platform that has emerged as the cornerstone of contemporary cloud native application development. Originally crafted by Google and presently overseen by the \ac{CNCF}, \ac{K8S} serves as a versatile and powerful solution for automating the deployment, scaling, and administration of containerized applications~\cite{burns2022kubernetes}. Its architectural design facilitates the abstraction of infrastructure intricacies, providing developers with a standardized environment for the efficient deployment and management of microservices.~\cite{noauthor_production-grade_nodate}
 
 \subsection{WinDivert}
+\label{subsec:windivert}
 WinDivert\footnote{https://github.com/basil00/Divert} is a dynamic and versatile open-source library designed specifically for Windows operating systems. Developed by Basil Hussain, it provides a user-mode packet capture-and-divert framework, enabling the interception, modification, and dropping of network packets.
 
 \begin{figure}
@@ -66,6 +69,7 @@ WinDivert\footnote{https://github.com/basil00/Divert} is a dynamic and versatile
 As illustrated in ~\Cref{fig:WinDivert}, WinDivert operates at the kernel level, but can be incorporated on user level, allowing applications to exert fine-grained control over network traffic on Windows platforms. This library is particularly useful for implementing network-related functionalities, such as firewall applications, intrusion detection systems, and network testing tools. With its Java bindings, WinDivert can be seamlessly integrated into Java applications, making it an appealing choice for scenarios where precise control over network traffic is essential.~\cite{noauthor_windivert:_nodate}
 
 \subsection{Chaos Mesh}
+\label{subsec:chaosmesh}
 Chaos Mesh is an open-source chaos engineering platform that facilitates the systematic testing and identification of weaknesses in distributed systems. Developed by the Chaos Mesh community, it provides a versatile set of tools for inducing chaos experiments within~\Cref{subsec:kubernetes} environments. These experiments aim to simulate real-world system failures and assess how well the system can withstand unexpected disruptions.
 
 Chaos Mesh offers features such as fault injection, resource consumption testing, and network chaos, allowing users to replicate scenarios such as network delays, packet loss, and more. By orchestrating controlled chaos experiments, Chaos Mesh helps teams proactively discover and address potential vulnerabilities, leading to enhanced system resilience and reliability.~\cite{noauthor_chaos_nodate}
