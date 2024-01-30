@@ -8,7 +8,7 @@ As discussed in~\Cref{subsec:resultCucumber}, Cucumber Expressions offer several
 \begin{listing}[!ht]
 \caption{Code snippet showing a complex \ac{Regex} annotation}
 \label{lst:complexRegex}
-\inputminted{java}{files/code/complexRegex.java}
+\inputminted[linenos, xleftmargin=2em]{java}{files/code/complexRegex.java}
 \end{listing}
 
 In scenarios such as those illustrated in~\Cref{lst:complexRegex}, Cucumber Expressions prove inadequate for replacing a regular expression, particularly when the latter includes a nested optional statement. This limitation arises from the fact that Cucumber Expressions do not support nested optional statements, rendering them unsuitable for scenarios where such complexity is present in the regular expression. In addition, there are instances, such as with the regular expression \verb|^[Ww]aiting for (\\d+) second[s]?$| and its corresponding Cucumber expression \verb|Waiting/waiting for {int} second(s)|. In these cases, a valid argument can be made that these expressions are equally effective, and there is no clear winner between them.

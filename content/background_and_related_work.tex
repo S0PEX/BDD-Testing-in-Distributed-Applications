@@ -14,9 +14,9 @@ Gherkin is a \ac{DSL} prominently utilized in the domain of \ac{BDD}. It is used
 
 \begin{listing}[!ht]
 \caption{Exemplary feature file with one scenario. Adapted from 
-\href{https://cucumber.io/blog/bdd/getting-started-with-bdd-part-1/}{cucumber.io}~\cite{noauthor_getting_nodate}}.
+\href{https://cucumber.io/blog/bdd/getting-started-with-bdd-part-1/}{cucumber.io}~\cite{noauthor_getting_nodate}.}
 \label{lst:withdrawcash}
-\inputminted{gherkin}{files/code/atm.feature}
+\inputminted[linenos, xleftmargin=2em]{gherkin}{files/code/atm.feature}
 \end{listing}
 
  Gherkin employs a distinct set of keywords to delineate various aspects of test scenarios. In particular, it utilizes the \texttt{feature} keyword to expound upon the primary functionality of the feature under examination, \texttt{Scenario} to specify individual use cases within the feature, \texttt{Given}-steps to establish initial context or preconditions, \texttt{When}-steps for denoting the event or action that triggers the scenario, and \texttt{Then}-steps for articulating anticipated outcomes for validation\footnote{It is imperative to acknowledge that this chapter does not exhaustively cover all Gherkin keywords, but rather focuses on those pertinent to our study. A comprehensive list is available at \href{https://cucumber.io/docs/gherkin/reference/\#keywords}{https://cucumber.io/docs/gherkin/reference}}. Furthermore, the \texttt{And} keyword facilitates the chaining of multiple steps of the same type, ensuring a logically granular and encapsulated representation of test steps. 
@@ -55,6 +55,13 @@ However, this comes at the cost of complexity, as these clusters of individual c
 \label{subsec:kubernetes}
 \acf{K8S}\footnote{https://kubernetes.io/} is an open source container orchestration platform that has emerged as the cornerstone of contemporary cloud native application development. Originally crafted by Google and presently overseen by the \ac{CNCF}, \ac{K8S} serves as a versatile and powerful solution for automating the deployment, scaling, and administration of containerized applications~\cite{burns2022kubernetes}. Its architectural design facilitates the abstraction of infrastructure intricacies, providing developers with a standardized environment for the efficient deployment and management of microservices.~\cite{noauthor_production-grade_nodate}
 
+
+\subsection{Chaos Mesh}
+\label{subsec:chaosmesh}
+Chaos Mesh is an open-source chaos engineering platform that facilitates the systematic testing and identification of weaknesses in distributed systems. Developed by the Chaos Mesh community, it provides a versatile set of tools for inducing chaos experiments within~\Cref{subsec:kubernetes} environments. These experiments aim to simulate real-world system failures and assess how well the system can withstand unexpected disruptions.
+
+Chaos Mesh offers features such as fault injection, resource consumption testing, and network chaos, allowing users to replicate scenarios such as network delays, packet loss, and more. By orchestrating controlled chaos experiments, Chaos Mesh helps teams proactively discover and address potential vulnerabilities, leading to enhanced system resilience and reliability.~\cite{noauthor_chaos_nodate}
+
 \subsection{WinDivert}
 \label{subsec:windivert}
 WinDivert\footnote{https://github.com/basil00/Divert} is a dynamic and versatile open-source library designed specifically for Windows operating systems. Developed by Basil Hussain, it provides a user-mode packet capture-and-divert framework, enabling the interception, modification, and dropping of network packets.
@@ -67,9 +74,3 @@ WinDivert\footnote{https://github.com/basil00/Divert} is a dynamic and versatile
 \end{figure}
 
 As illustrated in ~\Cref{fig:WinDivert}, WinDivert operates at the kernel level, but can be incorporated on user level, allowing applications to exert fine-grained control over network traffic on Windows platforms. This library is particularly useful for implementing network-related functionalities, such as firewall applications, intrusion detection systems, and network testing tools. With its Java bindings, WinDivert can be seamlessly integrated into Java applications, making it an appealing choice for scenarios where precise control over network traffic is essential.~\cite{noauthor_windivert:_nodate}
-
-\subsection{Chaos Mesh}
-\label{subsec:chaosmesh}
-Chaos Mesh is an open-source chaos engineering platform that facilitates the systematic testing and identification of weaknesses in distributed systems. Developed by the Chaos Mesh community, it provides a versatile set of tools for inducing chaos experiments within~\Cref{subsec:kubernetes} environments. These experiments aim to simulate real-world system failures and assess how well the system can withstand unexpected disruptions.
-
-Chaos Mesh offers features such as fault injection, resource consumption testing, and network chaos, allowing users to replicate scenarios such as network delays, packet loss, and more. By orchestrating controlled chaos experiments, Chaos Mesh helps teams proactively discover and address potential vulnerabilities, leading to enhanced system resilience and reliability.~\cite{noauthor_chaos_nodate}
