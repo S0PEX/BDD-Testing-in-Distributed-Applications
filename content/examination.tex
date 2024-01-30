@@ -19,7 +19,7 @@ In the process of compiling and launching \ac{RCE} successfully, we then proceed
 
 However, including the test suite in all releases and making it easily available as console commands has the advantage that when the software is not functioning correctly, users can execute the tests on their machines without additional setup steps. The test output can then be attached when submitting issues, aiding developers in debugging the problem.
 
-A full documentation of the command(s) for executing the tests can be found in the Developer Guide~\cite{rceDevGuide10x}. For our tests, the command, listed in~\Cref{lst:run-tests-command}, was sufficient. The command requires two arguments. Firstly, the tests to be executed, and secondly, the version of \ac{RCE} on which the tests should be performed. For example, the example command \texttt{run-test :all releases/10.5.0} results in the execution of the entire test suite, indicated by \texttt{:all}, on the \ac{RCE} release version \texttt{10.5.0}.
+The command in~\Cref{lst:run-tests-command} requires two arguments. Firstly, the tests to be executed, and secondly, the version of \ac{RCE} on which the tests should be performed. For example, the example command \texttt{run-test :all releases/10.5.0} results in the execution of the entire test suite, indicated by \texttt{:all}, on the \ac{RCE} release version \texttt{10.5.0}.
 
 \begin{listing}[ht]
 \caption{run-test command signature}
