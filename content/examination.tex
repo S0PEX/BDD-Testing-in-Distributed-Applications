@@ -24,7 +24,7 @@ However, this approach has the advantage that when the software does not functio
 To perform our tests, the execution of the command, listed in~\Cref{lst:run-tests-command}, was sufficient. It requires two arguments: first, the test cases that should be executed, and second, the version of \ac{RCE} on which the tests should be performed. For example, the example command \texttt{run-test :all releases/10.5.0} results in the execution of the entire test suite, indicated by \texttt{:all}, on the \ac{RCE} release version \texttt{10.5.0}.
 
 \begin{listing}[ht]
-\caption{run-test command signature}
+\caption{run-test command signature. Adapted from the RCE Developer Guide~\cite{rceDevGuide10x}.}
 \label{lst:run-tests-command}
 \begin{minted}{shell}
 run-test[s] [--format pretty|json] 
@@ -36,7 +36,7 @@ run-test[s] [--format pretty|json]
 During the initial execution of the command, it becomes clear that a freshly bootstrapped \ac{RCE} instance is unable to execute the test suite; instead, it prompts an error message. This issue is associated with the necessary configuration of the \ac{IM} as a prerequisite for the test suite. Consequently, the \ac{IM} must be configured through \ac{RCE}'s configuration file. There, the \texttt{instanceManagement} configuration block must be added. This block defines the root directory where work files and managed RCE test installations will be stored. An illustrative example configuration is provided in~\Cref{lst:configuration-json}.
 
 \begin{listing}[!ht]
-\caption{InstanceManagement block entry in \ac{RCE}'s configuration.json}
+\caption{InstanceManagement block entry in \ac{RCE}'s configuration.json. Adapted from the RCE Developer Guide~\cite{rceDevGuide10x}.}
 \label{lst:configuration-json}
 \inputminted[linenos, xleftmargin=2em]{json}{files/code/configuration.json}
 \end{listing}
@@ -79,7 +79,7 @@ The \ac{IM} plays a crucial role in overseeing \ac{RCE} instances used for testi
 This assumption can be easily verified using tools such as Task Manager, Process Hacker, htop, etc. Upon monitoring of the processes running during the tests, it becomes apparent that:
 
 \begin{observation}
-Individual \ac{RCE} instances are instantiated as subprocesses of the primary \ac{RCE} instance by the \ac{IM} to simulate a distributed system locally.
+Individual \ac{RCE} instances are spawned as subprocesses of the main \ac{RCE} instance by the \ac{IM} to emulate a distributed system locally. Their communication takes place over the loopback device.
 \end{observation}
 
 This observation aligns with the test description provided by Mischke et al. (2022)~\cite{10.1007/978-3-031-08760-8_44}. This strategic approach enables \ac{RCE} to emulate a locally distributed system with multiple independent instances, facilitating the testing of the implementation of network communication on the loopback device (i.e.,\texttt{localhost}). Consequently, the necessity of establishing and configuring a distributed system across multiple nodes can be mitigated. However, it is essential to acknowledge that this methodology has inherent limitations, as expounded on~\Cref{sec:results}.
@@ -110,7 +110,7 @@ Therefore, it would be interesting to explore an alternative approach to simulat
 This section centers on the evaluation of fault awareness or tolerance within the current suite of \ac{BDD} tests in \ac{RCE}. Our motivation comes from the identification of specific waiting conditions, such as ensuring the successful launch of necessary RCE instances by the \ac{IM}, as mentioned earlier in~\Cref{subsec:PreparingRCETests}. The objective of our examination is to determine the resilience of these waiting conditions, scrutinizing their adaptability to varying system resources, and assessing whether they might contribute to test failures that surpass the predefined wait-for-seconds threshold, because of insufficient resources rather than faulty implementations. An illustrative example of these static waits is presented in~\Cref{lst:staticwait}.
 
 \begin{listing}[!ht]
-\caption{Waiting step in Gherkin Scenario}
+\caption{Waiting step in Gherkin Scenario. Adapted from the rce-main repository~\cite{githubGitHubRcenvironmentrcemain}.}
 \label{lst:staticwait}
 \inputminted[linenos, xleftmargin=2em]{gherkin}{files/code/staticwait.feature}
 \end{listing}
@@ -118,7 +118,7 @@ This section centers on the evaluation of fault awareness or tolerance within th
 Now, consider the test step in line 4 and it's corresponding implementation, introduced in~\Cref{lst:staticwait_impl}. 
 
 \begin{listing}[!ht]
-\caption{Step Definition for waiting step in Gherkin Scenario}
+\caption{Step Definition for waiting step in Gherkin Scenario. Adapted from the rce-main repository~\cite{githubGitHubRcenvironmentrcemain}.}
 \label{lst:staticwait_impl}
 \inputminted[linenos, xleftmargin=2em]{java}{files/code/staticwait_impl.java}
 \end{listing}
@@ -139,22 +139,58 @@ In line 7 of the step definition, Java's \texttt{Thread.sleep}\footnote{\seqspli
 
 To empirically assess the tolerance of static wait durations under constrained resource conditions, we implemented a controlled experimental setup using a \ac{VM}. The \ac{VM} was hosted on the following bare metal host system, as illustrated in~\Cref{lst:host-specs}. On this system, we set up an Ubuntu 22.04 LTS machine using KVM/QEMU, with the specifications outlined in~\Cref{lst:vm-specs}.
 
-To rule out the presence of faulty tests, we ensured that executing the tests on the system specified in~\Cref{lst:host-specs} led to successful outcomes. In the experimental arrangement in~\Cref{lst:vm-specs}, we intentionally restricted the available resources of the \ac{VM}, notably reducing the RAM to 8 GB and constraining the CPU cores to 2. This was done to emulate an environment characterized by resource insufficiency. By imposing these limitations, our objective was to induce a test failure linked to the static wait issue, utilizing the 5-second threshold depicted in~\Cref{lst:staticwait}. 
+To rule out the presence of faulty tests, we ensured that executing the tests on the system specified in~\Cref{lst:host-specs} led to successful outcomes. 
+\begin{observation}
+    All RCE tests complete successfully when executed outside the VM.
+\end{observation}
+In the experimental arrangement in~\Cref{lst:vm-specs}, we intentionally restricted the available resources of the \ac{VM}, notably reducing the RAM to 8 GB and constraining the CPU cores to 2. This was done to emulate an environment characterized by resource insufficiency. By imposing these limitations, our objective was to induce a test failure linked to the static wait issue, utilizing the 5-second threshold depicted in~\Cref{lst:staticwait}. 
 
-While executing all tests on the \ac{VM} system, we observed that despite the short duration of 5 seconds, all ``GIVEN`` clauses were successfully executed. However, a significant number of workflow tests (i.e., \texttt{Workflow05}), failed to complete successfully. Workflow tests denote operations that involve extensive calculations, and the limited number of CPU cores became evident in this context. Upon inspecting the log outputs of the failed tests, we also noted that although the last log output of the test should have been displayed, it was empty. This is likely due to the ongoing computation on the side of the executing \ac{RCE} instance, resulting in a delay in reporting errors or successful messages.
+While executing the tests inside the \ac{VM}, we observed the following two behaviors:
+\begin{observation}
+    Executing the test suite within the VM (8GB RAM, 2 Cores) proceeded without errors, credited to the short static WAITs duration of 5 seconds in the ``GIVEN`` clause. Consequently, all ``GIVEN`` clauses passed successfully.
+\end{observation}
+\begin{observation}
+    Executing the test suite within the VM (8GB RAM, 2 Cores) led to a notable failure in numerous workflow tests, such as Workflow05, attributable to exceeding the maximum waiting time.
+\end{observation}
+Workflow tests denote operations that involve extensive calculations, and the limited number of CPU cores became evident in this context. Upon inspecting the log outputs of the failed tests, we also noted that although the last log output of the test should have been displayed, it was empty. This is likely due to the ongoing computation on the side of the executing \ac{RCE} instance, resulting in a delay in reporting errors or successful messages.
 
-To further investigate the impact of these static waits, we conducted additional tests, including running cpuburn\footnote{https://patrickmn.com/projects/cpuburn/} (similar to Prime95) to simulate increased CPU utilization. Executing a burn test test on our VM, inducing 80\% CPU utilization, resulted in failures in the ``GIVEN`` clauses' waits. It is noteworthy that an 80\% utilization, though seemingly uncommon, could realistically occur in a CI/CD test system with simultaneous execution of multiple tests. Furthermore, the computational performance of these systems may be lower than in our scenario with a single core of the 7940HS, particularly in cloud instances where portions of the cores, i.e. $\frac{1}{8}$, can be allocated to \acp{VM}.
+To further investigate the impact of these static waits, we conducted additional tests, including running cpuburn\footnote{https://patrickmn.com/projects/cpuburn/} (similar to Prime95) to simulate increased CPU utilization. Executing a ``burn test``-test inside our VM, inducing 80\% CPU utilization, and rerunning the tests resulted in the following observation:
+\begin{observation}
+    Failures in the "GIVEN" clauses' waits can be provoked when the CPU utilization reaches a level where the initiation of RCE instances surpasses the 5-second threshold.
+\end{observation}
 
-Furthermore, we conducted tests involving manual closure of \ac{RCE} instances instantiated by \ac{IM}. This action aimed to simulate a Java error or crash of \ac{RCE}. Instances terminated in this manner also led to failed tests and were essentially not detected by the \ac{IM}. While this is not inherently problematic, it would be desirable for the \ac{IM} to monitor \ac{RCE} processes through a watchdog and evaluate the shutdown condition accordingly.
+It is noteworthy that a CPU utilization of 80\%, although seemingly uncommon, could realistically occur during real operation, e.g., in a CI/CD test system with simultaneous execution of multiple tests. Furthermore, the computational performance of these systems may be lower than in our scenario with a single core of the 7940HS, particularly in cloud instances where portions of the cores, i.e. $\frac{1}{8}$, can be allocated to \acp{VM}.
+
+\newpage
+Furthermore, we conducted tests involving manual closure of \ac{RCE} instances instantiated by the \ac{IM}. This action aimed to simulate a Java error or crash of \ac{RCE}. We observed that:
+\begin{observation}
+    The manual termination of instances during test execution not only caused test failures but also went unnoticed by the \ac{IM}.
+\end{observation}
+While this is not inherently problematic, it would be desirable for the \ac{IM} to monitor \ac{RCE} processes using a watchdog and assess the shutdown condition accordingly. This way, it might be possible to rerun the test if the crash was caused by a general system circumstance rather than the application itself.
 
 \subsection{Code Review of \ac{RCE}'s Testing Setup}
 \label{subsec:CodeReview}
 To conclude our analysis, we reviewed the source code of both the \ac{TSR} and \ac{IM}. This step was intended to ensure the correctness of the implemented step definitions and their alignment with their intended functionality. It was essential to verify that the step definitions execute the actions as expected and, in the case of ``THEN`` conditions, evaluate them appropriately, avoiding scenarios where, for example, they consistently produce positive evaluations.
 
-During our analysis, we observed that the structure and organization of individual components generally adhere to key code quality principles, such as maintainability, modularity, and reusability. This manifests itself in a clear separation of concerns, as exemplified by the arrangement of the \texttt{\seqsplit{de.rcenvironment.supplemental.testscriptrunner.scripts}} project. Within this project, the feature files describe high-level scenarios, effectively decoupling the overarching behavioral specifications from their underlying implementations, which are stored in the \texttt{\seqsplit{de.rcenvironment.supplemental.testscriptrunner}} project. 
+During our analysis, we observed that:
+\begin{observation}
+    The structure and organization of individual components aligns with fundamental code quality principles, including maintainability, modularity, and reusability.
+\end{observation}
+
+This manifests itself in a clear separation of concerns, as exemplified by the arrangement of the \texttt{\seqsplit{de.rcenvironment.supplemental.testscriptrunner.scripts}} project. Within this project, the feature files describe high-level scenarios, effectively decoupling the overarching behavioral specifications from their underlying implementations, which are stored in the \texttt{\seqsplit{de.rcenvironment.supplemental.testscriptrunner}} project. 
 
 This delineation between the descriptive feature files and the implementation-specific code aligns with best practices in software architecture, promoting clarity and modularity. The adherence to these paradigms is also reflected in the internal structure within each project, ensuring a swift and comprehensible grasp of the project's intricacies. Additionally, it is evident that the business logic is decoupled through interfaces and concrete implementations, allowing the underlying implementations to be dynamically switched if needed. This is particularly positive in the case of \ac{IM}, as described above, which facilitates a relatively straightforward transition from local to remote execution of \ac{RCE} instances. 
 
-One notable observation related to the \ac{IM} was that the \texttt{\seqsplit{InstanceManagementService}} seemed quite tailored to the current structure for local tests, where individual \ac{RCE} instances are downloaded locally by the \ac{IM}. Certain methods, such as \texttt{\seqsplit{getInstallationsRootDir, getVersionOfInstallation}}, and \texttt{getDownloadsCacheDir}, might become obsolete in different configurations. These methods could potentially be implemented without functionality if, for example, the tests are executed on an existing remote cluster, etc. Therefore, this observation is not particularly problematic and serves as a mere observation rather than a significant critique.
+\newpage
+However, one notable observation concerning the \ac{IM} was that:
+\begin{observation}
+    Although the implementation of the \ac{IM} is decoupled through an interface, this interface exhibits a bias towards the implementation for local execution of RCE instances.
+\end{observation}
 
-However, our analysis identified specific instances that warrant review. Numerous step definitions rely on complex regex patterns, where simpler and more readable Cucumber Expressions could be employed. This is particularly evident in the mapping of test steps within feature files to intricate regular expressions in Cucumber Step Definition annotations (cf. \Cref{fig:cucumber-mapping}). Consequently, this introduces additional cognitive stress for developers, compromising the readability of the code. The resulting complexity poses challenges for immediate comprehensibility, potentially impeding the ease of future modifications and collaborations. Although not pervasive, these readability issues have significance and can potentially impact overall maintainability, especially in scenarios that lack a direct correspondence between the test steps and their definitions.
+Within the \ac{IM} interface, specific methods like \texttt{\seqsplit{getInstallationsRootDir}}, \texttt{getVersionOfInstallation}, and \texttt{getDownloadsCacheDir} are closely tied to the execution process, involving the downloading of binaries to disk and launching them locally. In varying configurations, these methods might potentially become obsolete. In such cases, they could be implemented without functionality, particularly if the tests are executed on an existing remote cluster, among others. Therefore, this observation is not particularly problematic; it serves more as a recognition than a significant critique.
+
+However, our analysis identified specific instances that warrant review:
+\begin{observation}
+    Numerous step definitions rely on complex regex patterns, where simpler and more readable Cucumber Expressions could be employed. 
+\end{observation}
+This observation is particularly evident in the mapping of test steps within feature files to intricate regular expressions in Cucumber Step Definition annotations (cf. \Cref{fig:cucumber-mapping}). Consequently, this introduces additional cognitive stress for developers, compromising the readability of the code. The resulting complexity poses challenges for immediate comprehensibility, potentially impeding the ease of future modifications and collaborations. While these readability issues are not widespread, they still hold significance and could potentially impact overall maintainability, especially in scenarios where there is no direct correspondence between the test steps and their definitions.
