@@ -10,7 +10,7 @@ Rooted in a user-centric philosophy, test cases are structured using a language 
 \subsection{Gherkin}
 \label{subsec:gherkin}
 
-Gherkin is a \acf{DSL} prominently utilized in the domain of \ac{BDD}. It is used to create requirements and tests in a clear and human-readable format~\cite{noauthor_gherkin_nodate}. Gherkin's syntax follows a systematic Given-When-Then structure, interweaving natural language expressions, as demonstrated in \Cref{lst:withdrawcash}. Therefore, it focuses on the end-user's perspective and business requirements rather than the underlying technical implementation.
+Gherkin is a \acf{DSL} prominently utilized in the domain of \ac{BDD}. It is used to document requirements and tests in a clear and human-readable format~\cite{noauthor_gherkin_nodate}. Gherkin's syntax follows a systematic Given-When-Then structure, interweaving natural language expressions, as demonstrated in \Cref{lst:withdrawcash}. Therefore, it focuses on the end-user's perspective and business requirements rather than the underlying technical implementation.
 
 \begin{listing}[!ht]
 \caption{Exemplary feature file with one scenario. Adapted from 
@@ -19,7 +19,7 @@ Gherkin is a \acf{DSL} prominently utilized in the domain of \ac{BDD}. It is use
 \inputminted[linenos, xleftmargin=2em]{gherkin}{files/code/atm.feature}
 \end{listing}
 
-Gherkin employs a distinct set of keywords to delineate various aspects of test scenarios~\cite{noauthor_gherkin_nodate}. In particular, it utilizes the \texttt{feature} keyword to expound upon the primary functionality of the feature under examination, \texttt{Scenario} to specify individual use cases within the feature, \texttt{Given}-steps to establish initial context or preconditions, \texttt{When}-steps for denoting the event or action that triggers the scenario, and \texttt{Then}-steps for articulating anticipated outcomes for validation\footnote{It is imperative to acknowledge that this chapter does not exhaustively cover all Gherkin keywords, but rather focuses on those pertinent to our study~\cite{noauthor_gherkin_nodate}. A comprehensive list is available at \href{https://cucumber.io/docs/gherkin/reference/\#keywords}{https://cucumber.io/docs/gherkin/reference}}. Furthermore, the \texttt{And} keyword facilitates the chaining of multiple steps of the same type, ensuring a logically granular and encapsulated representation of test steps. 
+Gherkin employs a distinct set of keywords to delineate various aspects of test scenarios~\cite{noauthor_gherkin_nodate}. In particular, it utilizes the \texttt{feature} keyword to expound upon the primary functionality of the feature under examination, \texttt{Scenario} to specify individual use cases within the feature, \texttt{Given}-steps to establish initial context or preconditions, \texttt{When}-steps for denoting events or actions during the scenario, and \texttt{Then}-steps for articulating anticipated outcomes for validation\footnote{It is imperative to acknowledge that this chapter does not exhaustively cover all Gherkin keywords, but rather focuses on those pertinent to our study~\cite{noauthor_gherkin_nodate}. A comprehensive list is available at \href{https://cucumber.io/docs/gherkin/reference/\#keywords}{https://cucumber.io/docs/gherkin/reference}}. Furthermore, the \texttt{And} keyword facilitates the chaining of multiple steps of the same type, ensuring a logically granular and encapsulated representation of test steps. 
 
 This structural arrangement cultivates a shared understanding among stakeholders about the expected behavior of the system, thereby mitigating possible misunderstandings between shareholders and the development team.
 
@@ -38,7 +38,7 @@ Based on the scenario described in~\Cref{lst:withdrawcash}, the corresponding~\C
 
 \subsection{Distributed Systems}
 \label{subsec:dissys}
-A distributed system is a network of independent computers, running on multiple servers or nodes, that interact and synchronize their activities through the exchange of information~\cite{tanenbaum2007distributed}. These systems consist of components that collaboratively work towards a shared objective, presenting advantages in terms of performance, scalability, and redundancy when compared to centralized systems. The shift from centralized architectures to distributed systems is driven by several inadequacies associated with non-distributed, centralized computing models, typified by a single monolithic server. Such centralized models have proven insufficient in addressing the increasing computational requirements and the need for enhanced system capabilities that could not be mitigated by vertically scaling a single system.
+A distributed system is a network of independent computers, running on multiple servers or nodes, that interact and synchronize their activities through the exchange of information~\cite{tanenbaum2007distributed}. These systems consist of components that collaboratively work towards a shared objective, presenting advantages in terms of performance, scalability, and redundancy when compared to centralized systems. The shift from centralized towards distributed systems is driven by several inadequacies associated with non-distributed, centralized computing models, typified by a single monolithic server. Such centralized models have proven insufficient in addressing the increasing computational requirements and the need for enhanced system capabilities that could not be mitigated by vertically scaling a single system.
 
 The distinctive feature of distributed systems lies in their avoidance of shared computing and memory resources, introducing complexities related to heterogeneity, scalability, and failure handling, among other challenges~\cite{coulouris2005distributed}. Non-distributed systems may struggle to effectively manage these challenges, leading to limitations in performance, scalability, and fault tolerance. Distributed systems, by distributing computational tasks across a network of interconnected computers, address these shortcomings~\cite{coulouris2005distributed}.
 
@@ -57,13 +57,13 @@ However, this comes at the cost of complexity, as these clusters of individual c
 
 \subsection{Chaos Mesh}
 \label{subsec:chaosmesh}
-Chaos Mesh is an open source chaos engineering platform that facilitates systematic testing and identification of weaknesses in distributed systems~\cite{noauthor_chaos_nodate}. Developed by the Chaos Mesh community, it provides a versatile set of tools for inducing chaos experiments within \hyperref[subsec:kubernetes]{K8s} environments. These experiments aim to simulate real-world system failures and assess how well the system can withstand unexpected disruptions.
+Chaos Mesh is an open source chaos engineering platform that facilitates systematic testing and identification of weaknesses in distributed systems~\cite{noauthor_chaos_nodate}. Developed by the Chaos Mesh Community, it provides a versatile set of tools for inducing chaos experiments within \hyperref[subsec:kubernetes]{K8s} environments. These experiments aim to simulate real-world system failures and assess how well the system can withstand unexpected disruptions.
 
 Chaos Mesh offers features such as fault injection, resource consumption testing, and network chaos, allowing users to replicate scenarios such as network delays, packet loss, and more. By orchestrating controlled chaos experiments, Chaos Mesh helps teams proactively discover and address potential vulnerabilities, leading to enhanced system resilience and reliability~\cite{noauthor_chaos_nodate}.
 
 \subsection{WinDivert}
 \label{subsec:windivert}
-WinDivert\footnote{https://github.com/basil00/Divert} is a dynamic and versatile open-source library targeting Windows operating systems~\cite{noauthor_windivert:_nodate}. Developed by Basil Hussain, it provides a packet capture-and-divert framework that enables the interception, modification, and drop of network packets.
+WinDivert\footnote{https://github.com/basil00/Divert} is a dynamic and versatile open-source library targeting Windows operating systems~\cite{noauthor_windivert:_nodate}. Developed by Basil Hussain, it provides a packet capture-and-divert framework that enables the interception, modification, and dropping of network packets.
 
 \begin{figure}
     \centering
