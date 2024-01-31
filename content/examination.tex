@@ -79,7 +79,7 @@ The \ac{IM} plays a crucial role in overseeing \ac{RCE} instances used for testi
 This assumption can be easily verified using tools such as Task Manager, Process Hacker, htop, etc. Upon monitoring of the processes running during the tests, it becomes apparent that:
 
 \begin{observation}
-Individual \ac{RCE} instances are spawned as subprocesses of the main \ac{RCE} instance by the \ac{IM} to emulate a distributed system locally. Their communication takes place over the loopback device.
+Individual \ac{RCE} instances are spawned as subprocesses of the main \ac{RCE} instance by the \acl{IM} to emulate a distributed system locally. Their communication takes place over the loopback device.
 \end{observation}
 
 This observation aligns with the test description provided by Mischke et al. (2022)~\cite{10.1007/978-3-031-08760-8_44}. This strategic approach enables \ac{RCE} to emulate a locally distributed system with multiple independent instances, facilitating the testing of the implementation of network communication on the loopback device (i.e.,\texttt{localhost}). Consequently, the necessity of establishing and configuring a distributed system across multiple nodes can be mitigated. However, it is essential to acknowledge that this methodology has inherent limitations, as expounded on~\Cref{sec:results}.
@@ -164,7 +164,7 @@ It is noteworthy that a CPU utilization of 80\%, although seemingly uncommon, co
 \newpage
 Furthermore, we conducted tests involving manual closure of \ac{RCE} instances instantiated by the \ac{IM}. This action aimed to simulate a Java error or crash of \ac{RCE}. We observed that:
 \begin{observation}
-    The manual termination of instances during test execution not only caused test failures but also went unnoticed by the \ac{IM}.
+    The manual termination of instances during test execution not only caused test failures but also went unnoticed by the \acl{IM}.
 \end{observation}
 While this is not inherently problematic, it would be desirable for the \ac{IM} to monitor \ac{RCE} processes using a watchdog and assess the shutdown condition accordingly. This way, it might be possible to rerun the test if the crash was caused by a general system circumstance rather than the application itself.
 
@@ -184,7 +184,7 @@ This delineation between the descriptive feature files and the implementation-sp
 \newpage
 However, one notable observation concerning the \ac{IM} was that:
 \begin{observation}
-    Although the implementation of the \ac{IM} is decoupled through an interface, this interface exhibits a bias towards the implementation for local execution of RCE instances.
+    Although the implementation of the \acl{IM} is decoupled through an interface, this interface exhibits a bias towards the implementation for local execution of RCE instances.
 \end{observation}
 
 Within the \ac{IM} interface, specific methods like \texttt{\seqsplit{getInstallationsRootDir}}, \texttt{getVersionOfInstallation}, and \texttt{getDownloadsCacheDir} are closely tied to the execution process, involving the downloading of binaries to disk and launching them locally. In varying configurations, these methods might potentially become obsolete. In such cases, they could be implemented without functionality, particularly if the tests are executed on an existing remote cluster, among others. Therefore, this observation is not particularly problematic; it serves more as a recognition than a significant critique.
