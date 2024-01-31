@@ -35,13 +35,13 @@ run-test[s] [--format pretty|json]
 
 During the initial execution of the command, it becomes clear that a freshly bootstrapped \ac{RCE} instance is unable to execute the test suite; instead, it prompts an error message. This issue is associated with the necessary configuration of the \ac{IM} as a prerequisite for the test suite. Consequently, the \ac{IM} must be configured through \ac{RCE}'s configuration file. There, the \texttt{instanceManagement} configuration block must be added. This block defines the root directory where work files and managed RCE test installations will be stored. An illustrative example configuration is provided in~\Cref{lst:configuration-json}.
 
-\begin{listing}[!ht]
-\caption{InstanceManagement block entry in \ac{RCE}'s configuration.json. Adapted from the RCE Developer Guide~\cite{rceDevGuide10x}.}
-\label{lst:configuration-json}
-\inputminted[linenos, xleftmargin=2em]{json}{files/code/configuration.json}
-\end{listing}
-
 Upon adjusting the \ac{IM} config block and then reissuing the test command, the tests are executed as intended. Throughout this process, crucial information, such as the test status and potential errors, is presented in the console. This output is depicted in~\Cref{fig:rce-test-output}. The result is the successful completion of all tests without errors, suggesting, at least on the surface, the accurate processing of the tests by the application.
+
+\begin{listing}[!ht]
+    \caption{InstanceManagement block entry in \ac{RCE}'s configuration.json. Adapted from the RCE Developer Guide~\cite{rceDevGuide10x}.}
+    \label{lst:configuration-json}
+    \inputminted[linenos, xleftmargin=2em]{json}{files/code/configuration.json}
+\end{listing}
 
 \begin{figure}[!ht]
     \centering
@@ -50,11 +50,14 @@ Upon adjusting the \ac{IM} config block and then reissuing the test command, the
     \label{fig:rce-test-output}
 \end{figure}
 
+Although in this step we conducted only a very superficial black-box test through the execution of the tests, we were able to observe two noteworthy aspects:
+\begin{itemize}
+    \item[\textbf{1.}] The \ac{RCE} tests encompass a diverse range of test cases, covering both functional tests (component, network communication, remote access, etc.) and the \ac{GUI} functionalities. Exclusively in \ac{GUI} tests, \ac{RCE} is launched with an authentic \ac{GUI}, and the functionalities are explicitly emulated through simulated clicks within the \ac{GUI}.
+    Executing the non-\acs{GUI}-based tests serves as a valuable test case, demonstrating that the typically \acs{GUI} based application can operate successfully without a \acs{GUI}. This testifies that the application can run on a server in a real-world scenario, i.e., without a display server. Additionally, it opens up the possibility of integrating these tests into a CI/CD pipeline, which often lacks the aforementioned display server.
 
-Although in this step we conducted only a very superficial black-box test through the execution of the tests, we were able to observe two noteworthy aspects. First, the \ac{RCE} tests encompass a diverse range of test cases, covering both functional tests (component, network communication, remote access, etc.) and the \ac{GUI} functionalities. Exclusively in \ac{GUI} tests, \ac{RCE} is launched with an authentic \ac{GUI}, and the functionalities are explicitly emulated through simulated clicks within the \ac{GUI}.
-Executing the non-\acs{GUI}-based tests serves as a valuable test case, demonstrating that the typically \acs{GUI} based application can operate successfully without a \acs{GUI}. This testifies that the application can run on a server in a real-world scenario, i.e., without a display server. Additionally, it opens up the possibility of integrating these tests into a CI/CD pipeline, which often lacks the aforementioned display server.
+    \item[\textbf{2.}] It became apparent that \ac{TSR} relies on \ac{IM} to start multiple \ac{RCE} instances configured as servers or clients. Therefore, we propose that the logic required to simulate a distributed environment is based heavily on the implementation of the \ac{IM} suggesting that it should be further analyzed in a subsequent step.
 
-Second, it became apparent that \ac{TSR} relies on \ac{IM} to start multiple \ac{RCE} instances configured as servers or clients. Therefore, we propose that the logic required to simulate a distributed environment is based heavily on the implementation of the \ac{IM} suggesting that it should be further analyzed in a subsequent step.
+\end{itemize}
 
 \subsection{\ac{RCE}'s BDD Testing Setup}
 \label{subsec:BuiltinBDDTest}
@@ -161,7 +164,6 @@ To further investigate the impact of these static waits, we conducted additional
 
 It is noteworthy that a CPU utilization of 80\%, although seemingly uncommon, could realistically occur during real operation, e.g., in a CI/CD test system with simultaneous execution of multiple tests. Furthermore, the computational performance of these systems may be lower than in our scenario with a single core of the 7940HS, particularly in cloud instances where portions of the cores, i.e. $\frac{1}{8}$, can be allocated to \acp{VM}.
 
-\newpage
 Furthermore, we conducted tests involving manual closure of \ac{RCE} instances instantiated by the \ac{IM}. This action aimed to simulate a Java error or crash of \ac{RCE}. We observed that:
 \begin{observation}
     The manual termination of instances during test execution not only caused test failures but also went unnoticed by the \acl{IM}.
