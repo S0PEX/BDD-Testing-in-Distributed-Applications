@@ -5,10 +5,10 @@ In this chapter, we introduce our task and discuss our chosen approach. First, i
 \label{subsec:Task}
 In the initial stages, our assignment was explicitly outlined and consists of the following tasks: 
 \begin{enumerate}
-    \item[A)] Examine the \ac{BDD} tests in \ac{RCE}. This investigation aimed to understand the current testing framework used and, later, be able to provide valuable information through a systematic evaluation of this set-up.
-    \item[B)] Successfully compile the \ac{RCE} source code, execute existing tests, and verify their functionality.
-    \item[C)] Perform a detailed analysis of the test code base and feature files, looking for errors or areas for improvement.
-    \item[D)] Implementation of improvements within the current code-base. Specifically, extend the network tests to test the application when the connection is lost between two nodes. 
+    \item[A)] Compile the \ac{RCE}'s source code
+    \item[B)] Review and execute the current tests in the \ac{RCE}. This examination seeks to comprehend the present testing framework employed, with the intention of subsequently offering valuable insights through a methodical evaluation.
+    \item[B)] Examine the code base of the \acl{TSR} and Gherkin feature files to identify errors or areas that could be improved.
+    \item[C)] Integrate enhancements into the existing codebase, focusing specifically on expanding network tests to assess the application's behavior in scenarios where the connection between two nodes is lost.
 \end{enumerate}
 
 \subsection{Methodology}
@@ -17,4 +17,6 @@ Based on the fact that our task could be divided into three subtasks, each pursu
 
 Given the understanding of the respective technologies, we have decided to conduct an in-depth examination of the existing tests through a code review, coupled with the execution of the current test cases as a black box. This approach has the advantage that, firstly, by simply running the tests, we may discover test cases that yield negative results and point us to broken tests. Recognizing that the accuracy of test outputs is only as reliable as the tests themselves, we have opted to simultaneously perform a code review. This allows us to verify whether the tests are indeed evaluating what they purport to test. 
 
-To address the last point on our agenda, which comprises implementing improvements and introducing new test cases, we have devised a strategy informed by the fact that we are not experts in the domain of \ac{RCE}. Given our limited familiarity with the software, we recognize the importance of adopting an exploratory approach to programming. This methodology proves advantageous in situations where comprehensive domain knowledge is lacking. By engaging in exploratory programming, we aim to iteratively experiment with the software, uncovering potential scenarios and functionalities that may not be apparent through conventional testing methods. This approach allows us to supplement the existing testing framework with additional test cases, thus enhancing its robustness and expanding its coverage.
+To address the last point on our agenda, which comprises implementing improvements and introducing new test cases, we have devised a strategy informed by the fact that we are not experts in the domain of \ac{RCE}. Given our limited familiarity with the software, we recognize the importance of adopting an exploratory approach to programming. This methodology proves advantageous in situations where comprehensive domain knowledge is lacking. By participating in exploratory programming, a process where developers iteratively experiment with the software, the goal is to uncover potential scenarios and functionalities that may not be immediately apparent through conventional testing methods. 
+
+Exploratory programming involves an interactive and hands-on approach to better understand the software's behavior and discover aspects that may not have been initially considered during the development process. This approach allows us to supplement the existing testing framework with additional test cases, thus enhancing its robustness and expanding its coverage.
