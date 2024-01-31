@@ -40,6 +40,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{seqsplit}
 \usepackage{microtype}
+\usepackage{appendix}
 \newtheorem{observation}[theorem]{Observation}
 
 % Used for displaying a sample figure. If possible, figure files should
@@ -91,12 +92,16 @@
 \section{Conclusion}
 \input{content/conclusion}
 
-%
 % ---- Bibliography ----
-%
-% BibTeX users should specify bibliography style 'splncs04'.
-% References will then be sorted and formatted in the correct style.
-%
+\appendix
+\appendixpage
+\section{External Source Code Repository References}
+\begin{itemize}
+    \item Proof of Concept (PoC) project incorporating the WinDivert and Chaos Mesh approaches: \href{https://github.com/S0PEX/rce-bdd-testing-ws23}{GitHub Repository}
+    \item Fork of the rce-main project with refactored regular expressions to Cucumber Expressions: \href{https://github.com/S0PEX/rce}{GitHub Repository}
+\end{itemize}
+
+% ---- Bibliography ----
 \clearpage
 \bibliographystyle{splncs04}
 \bibliography{references}
